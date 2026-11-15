@@ -1,0 +1,38 @@
+<!doctype html>
+<!--
+  Netlify reads these at deploy time to set up form handling. The real forms are
+  in src/app/(site)/room-rental and src/app/(site)/visit and post here. A field
+  added there has to be added here too, or Netlify drops it.
+-->
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <title>Forms</title>
+  </head>
+  <body>
+    <form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="contact" />
+      <input name="bot-field" />
+      <input name="name" />
+      <input name="email" type="email" />
+      <textarea name="message"></textarea>
+    </form>
+
+    <form name="room-rental" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="room-rental" />
+      <input name="bot-field" />
+      <input name="name" />
+      <input name="email" type="email" />
+      <input name="date" />
+      <input name="people" />
+      <textarea name="event"></textarea>
+    </form>
+
+    <form name="mailing-list" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="mailing-list" />
+      <input name="bot-field" />
+      <input name="email" type="email" />
+    </form>
+  </body>
+</html>

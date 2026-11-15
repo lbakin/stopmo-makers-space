@@ -1,0 +1,60 @@
+/* Every color, size and space on the site comes from this file.
+   DESIGN.md lists what each is for and the contrast ratios. */
+
+:root {
+  color-scheme: light;
+
+  /* Colors. The accent is the green of the St Johns Bridge, darkened for text. */
+  --page: #f6f4ee;
+  --text: #1d1c19;
+  --secondary: #5b5850;
+  --rule: #d5d0c4;
+  --accent: #2b5a4b;
+
+  --font: var(--font-vollkorn), "Iowan Old Style", Georgia, serif;
+
+  /* Type sizes. Nothing outside this list. */
+  --size-small: 0.875rem;
+  --size-ui: 1rem;
+  --size-body: 1.1875rem;
+  --size-h2: 1.5rem;
+  --size-h1: 2.25rem;
+  --size-title: 3.25rem;
+
+  /* Spacing. Nothing outside this list. */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --space-6: 3rem;
+  --space-7: 4rem;
+  --space-8: 6rem;
+
+  /* The column: about 68 characters of Vollkorn at body size. Use it only on
+     elements set at body size, since em follows the element's own size. */
+  --measure: 30em;
+  --radius-control: 2px;
+  --shadow-float: 0 1px 6px rgba(0, 0, 0, 0.18);
+  --fade: 150ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #161614;
+    --text: #e6e2d8;
+    --secondary: #a19c90;
+    --rule: #3a3833;
+    --accent: #88bca7;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #161614;
+  --text: #e6e2d8;
+  --secondary: #a19c90;
+  --rule: #3a3833;
+  --accent: #88bca7;
+}
