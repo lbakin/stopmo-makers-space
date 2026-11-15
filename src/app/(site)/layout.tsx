@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { SiteChrome } from "@/components/SiteChrome";
 import { getSettings } from "@/lib/content";
 import "@/styles/globals.css";
+import "@/styles/looks/index.css";
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings();

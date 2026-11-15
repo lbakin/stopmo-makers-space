@@ -91,6 +91,7 @@ export type CalendarEntry = {
   title: string;
   href?: string;
   external?: boolean;
+  source: "workshop" | "event";
   kind: string;
   summary?: string;
   places?: string;

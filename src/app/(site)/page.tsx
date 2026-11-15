@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Lettered } from "@/components/LookParts";
 import { Photo } from "@/components/Photo";
 import { Prose } from "@/components/Prose";
 import { getCalendar, getPages, getSettings } from "@/lib/content";
@@ -16,7 +17,10 @@ export default async function Home() {
   return (
     <>
       <section className="title-page" aria-labelledby="site-name">
-        <h1 id="site-name">{settings.name}</h1>
+        <h1 id="site-name">
+          <span className="name-text">{settings.name}</span>
+          <Lettered text={settings.name} />
+        </h1>
         {settings.underName && <p className="under">{smartQuotes(settings.underName)}</p>}
         {settings.status && <p className="status">{smartQuotes(settings.status)}</p>}
       </section>

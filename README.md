@@ -63,7 +63,8 @@ To let someone else edit, invite them under Members at sanity.io/manage. The Edi
 | --- | --- |
 | Colors, type sizes, spacing | `src/styles/tokens.css` |
 | All other styles | `src/styles/globals.css` |
-| The typeface (Vollkorn, OFL) | `src/fonts/`, loaded in `src/app/layout.tsx` |
+| The typefaces (OFL) | `src/fonts/`, licenses in `src/fonts/licenses/`, loaded in `src/app/layout.tsx` |
+| The looks being tried on this branch | `src/styles/looks/`, described in `LOOKS.md` |
 | The list of pages and their addresses | `src/lib/pages.ts` |
 | Pages | `src/app/(site)/` |
 | Reading content, from Sanity or the sample | `src/lib/content.ts` |

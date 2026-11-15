@@ -1,0 +1,357 @@
+/* Light table: a sheet of animation paper on a lit table in a dark room,
+   held at the top by a peg bar so every drawing stays in register.
+
+   Roughs go down in blue pencil, clean lines in graphite, keys and notes in
+   red. Headings show faint copies either side, the way the drawings before
+   and after show through the paper (onion skin), and links flip through
+   them when pointed at. The masthead has a pencil test of a bouncing ball,
+   with every drawing of it showing through. */
+
+:root[data-look="lighttable"] {
+  color-scheme: dark;
+  --desk: #1b1d20;
+  --desk-text: #c4c8cc;
+  --paper: #f6f7f2;
+  --page: var(--paper);
+  --text: #2f3236;
+  --secondary: #585d63;
+  --rule: #bfd3db;
+  --accent: #2c5fae;
+
+  --blue: #2c5fae;
+  --red: #b4342a;
+  --steel: #8b939b;
+  --peg: #b5bbc1;
+  --under-1: #dcdfd8;
+  --under-2: #e8eae4;
+  --onion-before: rgb(180 52 42 / 0.3);
+  --onion-before-2: rgb(180 52 42 / 0.14);
+  --onion-after: rgb(44 95 174 / 0.3);
+  --glow: rgb(255 255 236 / 0.07);
+
+  --sheet-pad: var(--space-3);
+}
+
+@media (min-width: 40em) {
+  :root[data-look="lighttable"] {
+    --sheet-pad: var(--space-6);
+  }
+}
+
+:root[data-look="lighttable"] body {
+  background: var(--desk);
+}
+
+/* One sheet, made of the masthead, the page and the colophon, with the
+   drawings underneath showing at the edges where they're out of line. */
+
+:root[data-look="lighttable"] .masthead .frame,
+:root[data-look="lighttable"] main.frame,
+:root[data-look="lighttable"] .colophon .frame {
+  color-scheme: light;
+  max-width: calc(var(--measure) + 2 * var(--sheet-pad));
+  padding-inline: var(--sheet-pad);
+  background: var(--paper);
+  box-shadow:
+    6px 0 0 var(--under-1),
+    -4px 0 0 var(--under-2),
+    0 0 4rem 1rem var(--glow);
+}
+
+:root[data-look="lighttable"] .masthead {
+  border-bottom: 0;
+  padding-top: var(--space-5);
+}
+
+:root[data-look="lighttable"] .masthead .frame {
+  position: relative;
+  align-items: center;
+  padding-top: var(--space-7);
+  padding-bottom: var(--space-3);
+}
+
+:root[data-look="lighttable"] .pegbar {
+  display: block;
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  translate: -50% 0;
+  width: 20rem;
+  max-width: calc(100% - 2rem);
+  height: auto;
+}
+
+:root[data-look="lighttable"] .pegbar .bar {
+  fill: var(--steel);
+}
+
+:root[data-look="lighttable"] .pegbar .peg {
+  fill: var(--peg);
+  stroke: #6c737a;
+  stroke-width: 1;
+}
+
+:root[data-look="lighttable"] .pegbar .bar-edge {
+  fill: #6c737a;
+}
+
+:root[data-look="lighttable"] .masthead .name {
+  font-size: var(--size-h2);
+}
+
+:root[data-look="lighttable"] .pencil-test {
+  display: block;
+  width: 13rem;
+  max-width: 45%;
+  height: auto;
+  overflow: visible;
+  margin-left: auto;
+}
+
+:root[data-look="lighttable"] .pencil-test .ground {
+  stroke: var(--rule);
+  stroke-width: 1;
+}
+
+:root[data-look="lighttable"] .pencil-test .drawing {
+  fill: none;
+  stroke: var(--blue);
+  stroke-opacity: 0.45;
+  stroke-width: 0.75;
+}
+
+:root[data-look="lighttable"] .pencil-test .live {
+  fill: var(--text);
+}
+
+:root[data-look="lighttable"] .masthead nav {
+  flex-basis: 100%;
+}
+
+:root[data-look="lighttable"] .masthead a[aria-current] {
+  font-weight: 400;
+  color: var(--red);
+  text-decoration: none;
+}
+
+/* Red pencil circles the page you're on, as an animator rings a note. */
+:root[data-look="lighttable"] .masthead a[aria-current="page"] {
+  display: inline-block;
+  margin: -0.2em -0.45em;
+  padding: 0.2em 0.45em;
+  border: 1.5px solid var(--red);
+  border-radius: 50%;
+  rotate: -2deg;
+}
+
+/* Onion skin. */
+
+@keyframes onion {
+  0% {
+    text-shadow: none;
+  }
+  33.333% {
+    text-shadow:
+      -1px 0 0 var(--onion-before),
+      1px 0 0 var(--onion-after);
+  }
+  66.667% {
+    text-shadow:
+      -2px -1px 0 var(--onion-before),
+      2px 1px 0 var(--onion-after);
+  }
+  100% {
+    text-shadow:
+      -3px -1px 0 var(--onion-before),
+      3px 1px 0 var(--onion-after);
+  }
+}
+
+:root[data-look="lighttable"] a,
+:root[data-look="lighttable"] .text-button {
+  text-decoration-color: rgb(44 95 174 / 0.55);
+}
+
+:root[data-look="lighttable"] a:hover,
+:root[data-look="lighttable"] .button:hover {
+  animation: onion 0.25s steps(1, end) forwards;
+  text-decoration-color: var(--blue);
+}
+
+:root[data-look="lighttable"] .title-page h1,
+:root[data-look="lighttable"] .page-title {
+  text-shadow:
+    -0.035em 0.025em 0 var(--onion-before),
+    -0.07em 0.05em 0 var(--onion-before-2),
+    0.035em -0.025em 0 var(--onion-after);
+}
+
+:root[data-look="lighttable"] .title-page .status {
+  display: inline-block;
+  margin-top: var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  color: var(--red);
+  border: 1.5px solid var(--red);
+  border-radius: 50%;
+  rotate: -3deg;
+}
+
+:root[data-look="lighttable"] main h2 {
+  color: var(--text);
+}
+
+/* Each entry is numbered in the corner like a drawing, circled like a key. */
+
+:root[data-look="lighttable"] main.frame {
+  counter-reset: drawing frame;
+}
+
+:root[data-look="lighttable"] .entry {
+  counter-increment: drawing;
+}
+
+:root[data-look="lighttable"] .entry h2 {
+  position: relative;
+  padding-right: 3rem;
+}
+
+:root[data-look="lighttable"] .entry h2::after {
+  content: counter(drawing);
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1.5px solid var(--red);
+  border-radius: 50%;
+  color: var(--red);
+  font-size: var(--size-ui);
+  font-variant-numeric: lining-nums;
+  rotate: 4deg;
+}
+
+:root[data-look="lighttable"] .break {
+  width: 12rem;
+  overflow: visible;
+}
+
+:root[data-look="lighttable"] .break line {
+  stroke: var(--blue);
+}
+
+:root[data-look="lighttable"] .break .key {
+  stroke: var(--red);
+  stroke-width: 1.5px;
+}
+
+:root[data-look="lighttable"] .contents,
+:root[data-look="lighttable"] .contents li,
+:root[data-look="lighttable"] .ruled,
+:root[data-look="lighttable"] .ruled li,
+:root[data-look="lighttable"] .dates,
+:root[data-look="lighttable"] .dates li {
+  border-color: var(--rule);
+}
+
+:root[data-look="lighttable"] .dates li[data-status="full"] .state,
+:root[data-look="lighttable"] .dates li[data-status="cancelled"] .state,
+:root[data-look="lighttable"] .xsheet tr[data-status="full"] .state,
+:root[data-look="lighttable"] .xsheet tr[data-status="cancelled"] .state {
+  color: var(--red);
+}
+
+/* The calendar as a printed exposure sheet: ruled boxes, column heads, and a
+   frame number down the left of every line. */
+
+:root[data-look="lighttable"] .xsheet {
+  border: 1.5px solid var(--blue);
+}
+
+:root[data-look="lighttable"] .xsheet thead {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip-path: none;
+  white-space: normal;
+}
+
+:root[data-look="lighttable"] .xsheet thead th {
+  color: var(--blue);
+  font-variant-caps: all-small-caps;
+  border-bottom: 1.5px solid var(--blue);
+}
+
+:root[data-look="lighttable"] .xsheet caption {
+  color: var(--blue);
+  border-bottom: 0;
+}
+
+:root[data-look="lighttable"] .xsheet th,
+:root[data-look="lighttable"] .xsheet td {
+  padding: var(--space-2);
+  border: 1px solid var(--rule);
+}
+
+:root[data-look="lighttable"] .xsheet tbody tr {
+  counter-increment: frame;
+}
+
+:root[data-look="lighttable"] .xsheet .day {
+  width: 6.5em;
+}
+
+:root[data-look="lighttable"] .xsheet tbody .day::before {
+  content: counter(frame, decimal-leading-zero);
+  display: inline-block;
+  width: 2.25em;
+  color: var(--blue);
+  font-size: var(--size-small);
+}
+
+/* The crossed box as a field guide: the nested frames an animator lays over
+   a drawing to see what the camera will take in. */
+
+:root[data-look="lighttable"] .photo-missing {
+  border: 1.5px solid var(--blue);
+  color: rgb(44 95 174 / 0.5);
+  background: var(--paper);
+  box-shadow:
+    inset 0 0 0 1.25rem var(--paper),
+    inset 0 0 0 calc(1.25rem + 1px) var(--rule),
+    inset 0 0 0 2.5rem var(--paper),
+    inset 0 0 0 calc(2.5rem + 1px) var(--rule),
+    inset 0 0 0 3.75rem var(--paper),
+    inset 0 0 0 calc(3.75rem + 1px) var(--rule),
+    inset 0 0 0 5rem var(--paper),
+    inset 0 0 0 calc(5rem + 1px) var(--rule);
+}
+
+:root[data-look="lighttable"] .photo figcaption {
+  color: var(--blue);
+}
+
+/* Forms */
+
+:root[data-look="lighttable"] input[type="text"],
+:root[data-look="lighttable"] input[type="email"],
+:root[data-look="lighttable"] textarea {
+  border-color: var(--text);
+}
+
+:root[data-look="lighttable"] .button {
+  border: 1.5px solid var(--text);
+}
+
+/* Colophon: the bottom of the sheet, then the desk. */
+
+:root[data-look="lighttable"] .colophon {
+  border-top: 0;
+  padding-bottom: var(--space-7);
+}
+
+:root[data-look="lighttable"] .colophon .frame {
+  border-top: 1px solid var(--rule);
+}

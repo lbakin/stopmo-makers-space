@@ -8,10 +8,10 @@ export function Break() {
     <svg className="break" viewBox="-1 0 146 20" aria-hidden="true" focusable="false">
       <line x1="0" y1="10" x2="144" y2="10" stroke="currentColor" strokeWidth="1" vectorEffect="non-scaling-stroke" />
       {KEYS.map((x) => (
-        <line key={x} x1={x} y1="2" x2={x} y2="18" stroke="currentColor" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+        <line key={x} className="key" x1={x} y1="2" x2={x} y2="18" stroke="currentColor" strokeWidth="1" vectorEffect="non-scaling-stroke" />
       ))}
       {INBETWEENS.map((x) => (
-        <line key={x} x1={x} y1="6" x2={x} y2="14" stroke="currentColor" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+        <line key={x} className="ib" x1={x} y1="6" x2={x} y2="14" stroke="currentColor" strokeWidth="1" vectorEffect="non-scaling-stroke" />
       ))}
     </svg>
   );

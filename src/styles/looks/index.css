@@ -1,0 +1,8 @@
+/* The looks on trial. Each file starts with its own colors and sizes, and
+   every rule in it is scoped to :root[data-look="…"], so a look can be
+   dropped by deleting its file and its line here and in src/lib/looks.ts. */
+@import "./shared.css";
+@import "./boil.css";
+@import "./lighttable.css";
+@import "./stripboard.css";
+@import "./cutout.css";

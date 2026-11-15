@@ -81,7 +81,7 @@ export default async function WorkshopPage({ params }: Props) {
             {workshop.sessions.map((s) => {
               const state = sessionState(s);
               return (
-                <li key={s.key}>
+                <li key={s.key} data-status={s.status ?? "open"}>
                   <span>
                     {longDate(s.date)}
                     {s.time && `, ${s.time}`}

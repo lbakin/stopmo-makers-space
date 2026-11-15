@@ -63,11 +63,10 @@ export default async function CalendarPage() {
               <tbody>
                 {list.map((e) => {
                   const state = sessionState(e);
-                  const notes = [e.kind, state].filter(Boolean).join(". ");
                   return (
-                    <tr key={e.key}>
+                    <tr key={e.key} data-source={e.source} data-status={e.status ?? "open"}>
                       <td className="day">
-                        <span className="sc">{weekdayShort(e.date)}</span> {dayOfMonth(e.date)}
+                        <span className="sc">{weekdayShort(e.date)}</span> <span className="num">{dayOfMonth(e.date)}</span>
                       </td>
                       <td className="time">{e.time}</td>
                       <td className="what">
@@ -81,8 +80,14 @@ export default async function CalendarPage() {
                           e.title
                         )}
                         <span className="kind">
-                          {notes}
-                          {e.summary && `${notes ? ". " : ""}${smartQuotes(e.summary)}`}
+                          {e.kind}
+                          {state && (
+                            <>
+                              {". "}
+                              <span className="state">{state}</span>
+                            </>
+                          )}
+                          {e.summary && `. ${smartQuotes(e.summary)}`}
                         </span>
                       </td>
                     </tr>

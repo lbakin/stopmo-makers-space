@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SiteChrome } from "@/components/SiteChrome";
 import "@/styles/globals.css";
+import "@/styles/looks/index.css";
 
 export default function NotFound() {
   return (

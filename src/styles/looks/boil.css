@@ -1,0 +1,469 @@
+/* Boil: plasticine.
+
+   When a puppet is re-sculpted or a line redrawn for every frame, no edge
+   lands in the same place twice and the picture shivers. Animators call it
+   boil. Here the name, headings, rules and buttons boil: three versions of
+   each edge, swapped on twos. Running text stays still so it can be read.
+   The colors are a box of modelling clay. */
+
+:root[data-look="boil"] {
+  color-scheme: light;
+  --page: #f0e7d5;
+  --text: #2a1f19;
+  --secondary: #66533f;
+  --rule: #d9c9ac;
+  --accent: #1d6c67;
+
+  --clay-red: #b4421f;
+  --clay-ochre: #e0a12c;
+  --clay-teal: #1d6c67;
+  --clay-rose: #d4677c;
+  --clay-blue: #3a5a9e;
+  --clay-moss: #6b8a35;
+  --clay-dark: #2a1f19;
+  --clay-cream: #fbf4e6;
+  --clay-board: #e6d9c0;
+
+  --size-mast: 1.625rem;
+  --size-h2: 2rem;
+  --size-h1: clamp(2.25rem, 7vw, 3.75rem);
+  --size-title: clamp(3.25rem, 13vw, 7rem);
+
+  /* Three drawings, each held for three frames at 24 a second. */
+  --boil: 0.375s;
+}
+
+@keyframes boil {
+  0% {
+    filter: url(#boil-1);
+  }
+  33.333% {
+    filter: url(#boil-2);
+  }
+  66.667% {
+    filter: url(#boil-3);
+  }
+  100% {
+    filter: url(#boil-1);
+  }
+}
+
+@keyframes boil-big {
+  0% {
+    filter: url(#boil-big-1);
+  }
+  33.333% {
+    filter: url(#boil-big-2);
+  }
+  66.667% {
+    filter: url(#boil-big-3);
+  }
+  100% {
+    filter: url(#boil-big-1);
+  }
+}
+
+:root[data-look="boil"] .masthead .name,
+:root[data-look="boil"] .masthead .frame::after,
+:root[data-look="boil"] .page-title,
+:root[data-look="boil"] main h2,
+:root[data-look="boil"] .xsheet caption,
+:root[data-look="boil"] .xsheet .num,
+:root[data-look="boil"] .break,
+:root[data-look="boil"] .button,
+:root[data-look="boil"] .title-page .status,
+:root[data-look="boil"] .contents li::before,
+:root[data-look="boil"] .colophon::before {
+  animation: boil var(--boil) steps(1, end) infinite;
+}
+
+:root[data-look="boil"] .title-page .l,
+:root[data-look="boil"] .photo-missing {
+  animation: boil-big var(--boil) steps(1, end) infinite;
+}
+
+/* Letters are re-sculpted one at a time, not all on the same frame. */
+:root[data-look="boil"] .title-page .l {
+  animation-delay: calc(var(--n) * -0.125s);
+}
+
+:root[data-look="boil"] body {
+  font-variant-numeric: oldstyle-nums proportional-nums;
+}
+
+:root[data-look="boil"] a {
+  text-decoration-thickness: 0.14em;
+  text-underline-offset: 0.16em;
+  text-decoration-color: var(--clay-ochre);
+}
+
+:root[data-look="boil"] a:hover {
+  text-decoration-color: var(--clay-red);
+}
+
+/* Masthead: a rolled coil of clay underneath instead of a rule. */
+
+:root[data-look="boil"] .masthead {
+  border-bottom: 0;
+}
+
+:root[data-look="boil"] .masthead .frame {
+  position: relative;
+  align-items: center;
+  padding-block: var(--space-4) var(--space-5);
+}
+
+:root[data-look="boil"] .masthead .frame::after {
+  content: "";
+  position: absolute;
+  left: var(--space-3);
+  right: var(--space-3);
+  bottom: 0;
+  height: 7px;
+  border-radius: 4px;
+  background: var(--clay-dark);
+}
+
+:root[data-look="boil"] .masthead .name {
+  font-size: var(--size-mast);
+  font-weight: 900;
+  font-variant-caps: normal;
+  line-height: 1.1;
+  color: var(--clay-red);
+  text-shadow: 0 0.06em 0 #7f2f17;
+}
+
+:root[data-look="boil"] .masthead ul {
+  gap: var(--space-1) var(--space-2);
+  margin-inline: calc(-1 * var(--space-2));
+}
+
+:root[data-look="boil"] .masthead ul a {
+  display: inline-block;
+  padding: var(--space-1) var(--space-2);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 48% 52% 45% 55% / 60% 45% 55% 40%;
+}
+
+:root[data-look="boil"] .masthead ul a:hover {
+  animation: boil var(--boil) steps(1, end) infinite;
+  background: var(--clay-board);
+}
+
+:root[data-look="boil"] .masthead a[aria-current] {
+  background: var(--clay-ochre);
+  color: var(--clay-dark);
+  font-weight: 700;
+  box-shadow: inset -2px -3px 0 rgb(0 0 0 / 0.14);
+}
+
+/* Title page */
+
+:root[data-look="boil"] .title-page {
+  padding-top: var(--space-4);
+}
+
+:root[data-look="boil"] .title-page h1 {
+  font-size: var(--size-title);
+  font-weight: 900;
+  line-height: 0.95;
+}
+
+:root[data-look="boil"] .title-page .l {
+  rotate: calc(sin(var(--n) * 2.4) * 4deg);
+  translate: 0 calc(cos(var(--n) * 1.9) * 0.04em);
+  text-shadow: 0 0.05em 0 color-mix(in oklab, currentColor 62%, black);
+}
+
+:root[data-look="boil"] .l[data-c="0"] {
+  color: var(--clay-red);
+}
+:root[data-look="boil"] .l[data-c="1"] {
+  color: var(--clay-ochre);
+}
+:root[data-look="boil"] .l[data-c="2"] {
+  color: var(--clay-teal);
+}
+:root[data-look="boil"] .l[data-c="3"] {
+  color: var(--clay-rose);
+}
+:root[data-look="boil"] .l[data-c="4"] {
+  color: var(--clay-blue);
+}
+:root[data-look="boil"] .l[data-c="5"] {
+  color: var(--clay-moss);
+}
+
+:root[data-look="boil"] .title-page .under {
+  margin-top: var(--space-4);
+}
+
+:root[data-look="boil"] .title-page .status {
+  display: inline-block;
+  margin-top: var(--space-4);
+  padding: var(--space-1) var(--space-3);
+  background: var(--clay-teal);
+  color: var(--clay-cream);
+  font-weight: 700;
+  border-radius: 46% 54% 50% 50% / 58% 48% 52% 42%;
+  rotate: -3deg;
+  box-shadow: 0 4px 0 #0e3e3b;
+}
+
+/* Headings */
+
+:root[data-look="boil"] .page-title {
+  font-size: var(--size-h1);
+  font-weight: 900;
+  line-height: 1;
+  color: var(--clay-red);
+  text-shadow: 0 0.05em 0 #7f2f17;
+}
+
+:root[data-look="boil"] main h2 {
+  font-size: var(--size-h2);
+  font-weight: 800;
+}
+
+:root[data-look="boil"] .lead {
+  color: var(--text);
+  font-size: var(--size-h2);
+  line-height: 1.3;
+}
+
+/* Contents: a ball of clay beside each page, each a different color. */
+
+:root[data-look="boil"] .contents {
+  border-bottom: 0;
+}
+
+:root[data-look="boil"] .contents li {
+  display: grid;
+  grid-template-columns: 1.75rem 1fr;
+  column-gap: var(--space-3);
+  border-top: 0;
+  padding-block: var(--space-2);
+}
+
+:root[data-look="boil"] .contents li::before {
+  content: "";
+  grid-row: 1 / span 2;
+  width: 1.5rem;
+  height: 1.375rem;
+  margin-top: 0.3rem;
+  border-radius: 48% 52% 45% 55% / 55% 45% 55% 45%;
+  background: var(--clay-red);
+  box-shadow: inset -3px -4px 0 rgb(0 0 0 / 0.16);
+}
+
+:root[data-look="boil"] .contents li:nth-child(6n + 2)::before {
+  background: var(--clay-ochre);
+}
+:root[data-look="boil"] .contents li:nth-child(6n + 3)::before {
+  background: var(--clay-teal);
+}
+:root[data-look="boil"] .contents li:nth-child(6n + 4)::before {
+  background: var(--clay-rose);
+}
+:root[data-look="boil"] .contents li:nth-child(6n + 5)::before {
+  background: var(--clay-blue);
+}
+:root[data-look="boil"] .contents li:nth-child(6n)::before {
+  background: var(--clay-moss);
+}
+
+:root[data-look="boil"] .contents a {
+  grid-column: 2;
+  font-size: var(--size-h2);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+:root[data-look="boil"] .contents .line {
+  grid-column: 2;
+}
+
+/* The timing chart, rolled in clay. */
+
+:root[data-look="boil"] .break {
+  width: 12rem;
+  overflow: visible;
+}
+
+:root[data-look="boil"] .break line {
+  stroke: var(--clay-dark);
+  stroke-width: 4px;
+  stroke-linecap: round;
+}
+
+:root[data-look="boil"] .break .key {
+  stroke: var(--clay-red);
+  stroke-width: 7px;
+}
+
+:root[data-look="boil"] .break .ib {
+  stroke: var(--clay-ochre);
+  stroke-width: 5px;
+}
+
+/* Workshop and notice entries take a clay color each, in turn. */
+
+:root[data-look="boil"] .entry h2 {
+  font-size: var(--size-h2);
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+:root[data-look="boil"] .entry h2 a {
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 0.06em;
+}
+
+:root[data-look="boil"] .entry:nth-of-type(4n + 1) h2 {
+  color: var(--clay-red);
+}
+:root[data-look="boil"] .entry:nth-of-type(4n + 2) h2 {
+  color: var(--clay-teal);
+}
+:root[data-look="boil"] .entry:nth-of-type(4n + 3) h2 {
+  color: var(--clay-blue);
+}
+:root[data-look="boil"] .entry:nth-of-type(4n) h2 {
+  color: var(--clay-moss);
+}
+
+/* Calendar: the day of the month on a pressed ball of clay. */
+
+:root[data-look="boil"] .xsheet caption {
+  font-weight: 800;
+  color: var(--clay-teal);
+  border-bottom: 0;
+  padding-bottom: var(--space-3);
+}
+
+:root[data-look="boil"] .xsheet th,
+:root[data-look="boil"] .xsheet td {
+  vertical-align: middle;
+  border-bottom: 2px solid var(--rule);
+}
+
+:root[data-look="boil"] .xsheet .day {
+  width: 6.5em;
+}
+
+:root[data-look="boil"] .xsheet .num {
+  display: inline-grid;
+  place-items: center;
+  width: 2.25em;
+  height: 2.1em;
+  margin-left: var(--space-1);
+  border-radius: 48% 52% 45% 55% / 55% 45% 55% 45%;
+  background: var(--clay-ochre);
+  color: var(--clay-dark);
+  font-weight: 700;
+  box-shadow: inset -2px -3px 0 rgb(0 0 0 / 0.14);
+}
+
+:root[data-look="boil"] .xsheet tr[data-source="event"] .num {
+  background: var(--clay-rose);
+}
+
+:root[data-look="boil"] .xsheet tr[data-status="full"] .state,
+:root[data-look="boil"] .xsheet tr[data-status="cancelled"] .state,
+:root[data-look="boil"] .dates li[data-status="full"] .state,
+:root[data-look="boil"] .dates li[data-status="cancelled"] .state {
+  color: var(--clay-red);
+  font-weight: 700;
+}
+
+:root[data-look="boil"] .dates,
+:root[data-look="boil"] .dates li,
+:root[data-look="boil"] .ruled,
+:root[data-look="boil"] .ruled li {
+  border-width: 2px;
+}
+
+/* The crossed box, pressed out of clay. */
+
+:root[data-look="boil"] .photo-missing {
+  border: 5px solid var(--clay-dark);
+  border-radius: 1.25rem 1.75rem 1rem 1.5rem / 1.5rem 1rem 1.75rem 1.25rem;
+  background: var(--clay-board);
+  color: var(--clay-red);
+}
+
+:root[data-look="boil"] .photo-missing line {
+  stroke-width: 5px;
+  stroke-linecap: round;
+}
+
+/* Forms */
+
+:root[data-look="boil"] input[type="text"],
+:root[data-look="boil"] input[type="email"],
+:root[data-look="boil"] textarea {
+  background: var(--clay-cream);
+  border: 3px solid var(--clay-dark);
+  border-radius: 0.875rem 1.125rem 1rem 1.25rem / 1.125rem 0.875rem 1.25rem 1rem;
+  padding: var(--space-2) var(--space-3);
+}
+
+:root[data-look="boil"] .field label {
+  font-weight: 600;
+}
+
+:root[data-look="boil"] .button {
+  margin-bottom: 4px;
+  padding: var(--space-2) var(--space-4);
+  background: var(--clay-red);
+  color: var(--clay-cream);
+  font-weight: 700;
+  border: 0;
+  border-radius: 1.4rem 1.1rem 1.5rem 1.2rem / 1.2rem 1.5rem 1.1rem 1.4rem;
+  box-shadow: 0 4px 0 #7f2f17;
+}
+
+:root[data-look="boil"] .button:hover {
+  background: #9c3819;
+}
+
+:root[data-look="boil"] .button:active {
+  translate: 0 3px;
+  box-shadow: 0 1px 0 #7f2f17;
+}
+
+:root[data-look="boil"] .button:disabled {
+  background: var(--secondary);
+  box-shadow: 0 4px 0 var(--clay-dark);
+}
+
+/* Colophon: a slab of dark clay, with a coil along its top edge. */
+
+:root[data-look="boil"] .colophon {
+  position: relative;
+  margin-top: var(--space-6);
+  background: var(--clay-dark);
+  color: #e9dcc6;
+  border-top: 0;
+  border-radius: 2.5rem 3rem 0 0 / 1.5rem 1.25rem 0 0;
+}
+
+:root[data-look="boil"] .colophon::before {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: -3px;
+  height: 7px;
+  border-radius: 4px;
+  background: var(--clay-ochre);
+}
+
+:root[data-look="boil"] .colophon a {
+  color: var(--clay-cream);
+}
+
+:root[data-look="boil"] .colophon :focus-visible {
+  outline-color: var(--clay-ochre);
+}

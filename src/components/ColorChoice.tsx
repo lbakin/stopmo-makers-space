@@ -1,10 +1,10 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import { COLORS_KEY as KEY } from "@/lib/head-script";
 
 type Choice = "light" | "dark" | "device";
 
-const KEY = "colors";
 const listeners = new Set<() => void>();
 
 function read(): Choice {
@@ -53,7 +53,3 @@ export function ColorChoice() {
     </p>
   );
 }
-
-// Runs in the head before the page paints, so a saved choice never flashes.
-// ?colors=dark or ?colors=light in the address shows that version without saving it.
-export const colorScript = `(function(){var d=document.documentElement;d.classList.add('js');try{var q=new URLSearchParams(location.search).get('${KEY}');var t=q||localStorage.getItem('${KEY}');if(t==='light'||t==='dark')d.dataset.theme=t;}catch(e){}})();`;

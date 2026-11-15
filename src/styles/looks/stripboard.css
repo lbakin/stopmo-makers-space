@@ -1,0 +1,574 @@
+/* Stripboard: the production office.
+
+   Everything is typed, as production paperwork still is. The masthead is the
+   boxed header of a call sheet. Pages are script pages, three-hole punched
+   with brass brads in the top and bottom holes, scene numbers in both
+   margins, and CUT TO: between scenes. The calendar is a stripboard: one
+   colored strip for each thing on the schedule and a black strip for each
+   month. Status is stamped in red, and the page you're on is marked with
+   the highlighter actors use on their own lines. Notices are index cards. */
+
+:root[data-look="stripboard"] {
+  color-scheme: light;
+  --manila: #e3d3ad;
+  --manila-edge: #cbb98f;
+  --page: #fdfcf7;
+  --text: #1c1b18;
+  --secondary: #57534a;
+  --rule: #1c1b18;
+  --light-rule: #cfc9ba;
+  --accent: #b5121b;
+
+  --stamp: #b5121b;
+  --highlight: #fbe75a;
+  --strip-workshop: #f6dc5c;
+  --strip-event: #a9d1ef;
+  --strip-cancelled: #e2ddd1;
+  --brass: #b8913d;
+  --brass-dark: #7c6024;
+  --card: #fffef9;
+  --card-line: #b7cde6;
+  --card-top: #d7564c;
+
+  --font: var(--font-courier), "Courier New", Courier, monospace;
+  --size-small: 0.875rem;
+  --size-ui: 1rem;
+  --size-body: 1.0625rem;
+  --size-h2: 1.0625rem;
+  --size-h1: 1.375rem;
+  --size-title: 1.75rem;
+  --measure: 36em;
+  --sheet-pad: var(--space-3);
+
+  /* Ink that didn't take everywhere: a speckle of gaps in the stamp. */
+  --ink: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='80'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -3.2 2.75'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (min-width: 48em) {
+  :root[data-look="stripboard"] {
+    --sheet-pad: var(--space-7);
+  }
+}
+
+:root[data-look="stripboard"] body {
+  background: var(--manila);
+  font-variant-numeric: normal;
+}
+
+:root[data-look="stripboard"] .sc {
+  font-variant-caps: normal;
+  text-transform: uppercase;
+}
+
+:root[data-look="stripboard"] a {
+  text-decoration-color: var(--text);
+}
+
+/* The highlighter. */
+:root[data-look="stripboard"] a:hover,
+:root[data-look="stripboard"] .masthead a[aria-current] {
+  background: var(--highlight);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* Masthead: a call sheet header. */
+
+:root[data-look="stripboard"] .masthead {
+  border-bottom: 0;
+  padding: var(--space-5) var(--space-3) 0;
+}
+
+:root[data-look="stripboard"] .masthead .frame {
+  display: block;
+  max-width: calc(var(--measure) + 2 * var(--sheet-pad));
+  padding: 0;
+  background: var(--page);
+  border: 2px solid var(--rule);
+}
+
+:root[data-look="stripboard"] .masthead .name {
+  display: block;
+  padding: var(--space-3);
+  font-size: var(--size-h1);
+  font-weight: 700;
+  font-variant-caps: normal;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 2px solid var(--rule);
+}
+
+:root[data-look="stripboard"] .masthead ul {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  font-size: var(--size-ui);
+}
+
+@media (min-width: 36em) {
+  :root[data-look="stripboard"] .masthead ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+:root[data-look="stripboard"] .masthead li {
+  background: var(--page);
+}
+
+:root[data-look="stripboard"] .masthead ul a {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+:root[data-look="stripboard"] .masthead a[aria-current] {
+  font-weight: 700;
+}
+
+/* The page: a script page with the pages under it showing at the bottom. */
+
+:root[data-look="stripboard"] main.frame {
+  position: relative;
+  max-width: calc(var(--measure) + 2 * var(--sheet-pad));
+  margin-top: var(--space-4);
+  padding: var(--space-7) var(--sheet-pad) var(--space-8);
+  background: var(--page);
+  box-shadow:
+    0 2px 0 var(--manila-edge),
+    0 4px 0 var(--page),
+    0 6px 0 var(--manila-edge);
+}
+
+/* Three holes; brads in the top and bottom ones. */
+@media (min-width: 48em) {
+  :root[data-look="stripboard"] main.frame::before {
+    content: "";
+    position: absolute;
+    left: var(--space-4);
+    top: 0;
+    bottom: 0;
+    width: 1.25rem;
+    background:
+      radial-gradient(circle closest-side, var(--brass) 52%, var(--brass-dark) 60%, var(--manila) 64%, var(--manila) 96%, transparent 100%) 0 var(--space-7) / 1.25rem 1.25rem no-repeat,
+      radial-gradient(circle closest-side, var(--manila) 96%, transparent 100%) 0 50% / 1.25rem 1.25rem no-repeat,
+      radial-gradient(circle closest-side, var(--brass) 52%, var(--brass-dark) 60%, var(--manila) 64%, var(--manila) 96%, transparent 100%) 0 calc(100% - var(--space-7)) / 1.25rem 1.25rem no-repeat;
+  }
+}
+
+:root[data-look="stripboard"] .page-title,
+:root[data-look="stripboard"] main h2,
+:root[data-look="stripboard"] .title-page h1 {
+  font-weight: 700;
+  text-transform: uppercase;
+  text-wrap: wrap;
+}
+
+:root[data-look="stripboard"] .page-title {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
+:root[data-look="stripboard"] main h2 {
+  line-height: 1.5;
+}
+
+:root[data-look="stripboard"] .lead {
+  font-style: normal;
+  color: var(--text);
+}
+
+:root[data-look="stripboard"] .lead::before {
+  content: "(";
+}
+
+:root[data-look="stripboard"] .lead::after {
+  content: ")";
+}
+
+/* Title page */
+
+:root[data-look="stripboard"] .title-page {
+  padding-block: var(--space-5) var(--space-6);
+  text-align: center;
+}
+
+:root[data-look="stripboard"] .title-page h1 {
+  font-size: var(--size-title);
+  line-height: 1.3;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
+:root[data-look="stripboard"] .title-page .under {
+  margin-top: var(--space-5);
+  font-style: normal;
+  color: var(--text);
+}
+
+/* Rubber stamps */
+
+:root[data-look="stripboard"] .title-page .status,
+:root[data-look="stripboard"] .dates li[data-status="full"] .state,
+:root[data-look="stripboard"] .dates li[data-status="cancelled"] .state,
+:root[data-look="stripboard"] .xsheet tr[data-status="full"] .state,
+:root[data-look="stripboard"] .xsheet tr[data-status="cancelled"] .state {
+  display: inline-block;
+  padding: 0 0.4em;
+  color: var(--stamp);
+  font-weight: 700;
+  text-transform: uppercase;
+  border: 0.15em solid currentColor;
+  border-radius: 0.2em;
+  rotate: -6deg;
+  -webkit-mask: var(--ink) center / 160px 80px;
+  mask: var(--ink) center / 160px 80px;
+  mix-blend-mode: multiply;
+}
+
+:root[data-look="stripboard"] .title-page .status {
+  margin-top: var(--space-6);
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--size-title);
+  line-height: 1.3;
+  rotate: -8deg;
+}
+
+/* Contents: a scene list, with leaders out to the scene number. */
+
+:root[data-look="stripboard"] main.frame {
+  counter-reset: scene;
+}
+
+:root[data-look="stripboard"] .contents {
+  border-bottom: 0;
+}
+
+:root[data-look="stripboard"] .contents li {
+  counter-increment: scene;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  column-gap: var(--space-2);
+  border-top: 0;
+  padding-block: var(--space-2);
+}
+
+:root[data-look="stripboard"] .contents li::before {
+  content: "";
+  grid-column: 2;
+  grid-row: 1;
+  align-self: end;
+  margin-bottom: 0.4em;
+  border-bottom: 2px dotted var(--rule);
+}
+
+:root[data-look="stripboard"] .contents li::after {
+  content: counter(scene);
+  grid-column: 3;
+  grid-row: 1;
+  font-weight: 700;
+}
+
+:root[data-look="stripboard"] .contents a {
+  grid-column: 1;
+  grid-row: 1;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+:root[data-look="stripboard"] .contents .line {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  color: var(--secondary);
+}
+
+/* Scenes: workshops and notices, numbered in both margins. */
+
+:root[data-look="stripboard"] .break {
+  display: none;
+}
+
+:root[data-look="stripboard"] .entry {
+  counter-increment: scene;
+  margin-top: var(--space-6);
+}
+
+:root[data-look="stripboard"] .entry h2 {
+  position: relative;
+}
+
+:root[data-look="stripboard"] .entry h2::before {
+  content: counter(scene) "  ";
+  white-space: pre;
+}
+
+@media (min-width: 48em) {
+  :root[data-look="stripboard"] .entry h2::before,
+  :root[data-look="stripboard"] .entry h2::after {
+    content: counter(scene);
+    position: absolute;
+    top: 0;
+  }
+
+  :root[data-look="stripboard"] .entry h2::before {
+    right: calc(100% + var(--space-5));
+  }
+
+  :root[data-look="stripboard"] .entry h2::after {
+    left: calc(100% + var(--space-5));
+  }
+}
+
+:root[data-look="stripboard"] section.entry + section.entry::before {
+  content: "CUT TO:" / "";
+  display: block;
+  margin-bottom: var(--space-6);
+  text-align: right;
+}
+
+:root[data-look="stripboard"] .entry .meta {
+  margin-top: var(--space-2);
+  padding-left: 2em;
+  color: var(--secondary);
+}
+
+/* Lists */
+
+:root[data-look="stripboard"] .dates {
+  border: 2px solid var(--rule);
+  font-size: var(--size-ui);
+}
+
+:root[data-look="stripboard"] .dates li {
+  align-items: center;
+  padding: var(--space-2) var(--space-3);
+  border-top: 1px solid var(--rule);
+}
+
+:root[data-look="stripboard"] .dates li:first-child {
+  border-top: 0;
+}
+
+/* The equipment list as a checklist. */
+:root[data-look="stripboard"] .ruled {
+  border-bottom: 0;
+}
+
+:root[data-look="stripboard"] .ruled li {
+  position: relative;
+  padding-left: 2em;
+  border-top: 0;
+}
+
+:root[data-look="stripboard"] .ruled li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: calc(var(--space-2) + 0.3em);
+  width: 0.9em;
+  height: 0.9em;
+  border: 2px solid var(--rule);
+}
+
+:root[data-look="stripboard"] .facts {
+  gap: 0;
+  border: 2px solid var(--rule);
+  font-size: var(--size-ui);
+}
+
+:root[data-look="stripboard"] .facts dt,
+:root[data-look="stripboard"] .facts dd {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--rule);
+}
+
+:root[data-look="stripboard"] .facts dt {
+  color: var(--text);
+  font-weight: 700;
+  text-transform: uppercase;
+  border-right: 1px solid var(--rule);
+}
+
+:root[data-look="stripboard"] .facts dt:last-of-type,
+:root[data-look="stripboard"] .facts dd:last-of-type {
+  border-bottom: 0;
+}
+
+/* The calendar as a stripboard. */
+
+:root[data-look="stripboard"] .xsheet {
+  border: 2px solid var(--rule);
+}
+
+:root[data-look="stripboard"] .xsheet caption {
+  padding: var(--space-2) var(--space-3);
+  background: var(--rule);
+  color: var(--page);
+  font-size: var(--size-ui);
+  font-weight: 700;
+  text-transform: uppercase;
+  border-bottom: 0;
+}
+
+:root[data-look="stripboard"] .xsheet th,
+:root[data-look="stripboard"] .xsheet td {
+  vertical-align: top;
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 2px solid var(--rule);
+}
+
+:root[data-look="stripboard"] .xsheet td + td {
+  border-left: 1px solid var(--rule);
+}
+
+:root[data-look="stripboard"] .xsheet tr[data-source="workshop"] {
+  background: var(--strip-workshop);
+}
+
+:root[data-look="stripboard"] .xsheet tr[data-source="event"] {
+  background: var(--strip-event);
+}
+
+:root[data-look="stripboard"] .xsheet tr[data-status="cancelled"] {
+  background: var(--strip-cancelled);
+}
+
+:root[data-look="stripboard"] .xsheet .day {
+  width: 5.5em;
+  font-weight: 700;
+}
+
+:root[data-look="stripboard"] .xsheet .time {
+  width: 6.5em;
+}
+
+:root[data-look="stripboard"] .xsheet .what > a {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+:root[data-look="stripboard"] .xsheet .what .kind {
+  color: var(--text);
+}
+
+:root[data-look="stripboard"] .xsheet tr[data-status="full"] .state,
+:root[data-look="stripboard"] .xsheet tr[data-status="cancelled"] .state {
+  margin-inline: 0.2em;
+}
+
+/* The crossed box as an empty storyboard panel. */
+
+:root[data-look="stripboard"] .photo-missing {
+  border: 2px solid var(--rule);
+  color: var(--light-rule);
+  aspect-ratio: 16 / 9;
+}
+
+:root[data-look="stripboard"] .photo figcaption {
+  color: var(--text);
+}
+
+/* Notices: index cards pinned to the page. */
+
+:root[data-look="stripboard"] article.entry {
+  --line: 1.5em;
+  position: relative;
+  margin-top: var(--space-6);
+  padding: var(--line) var(--space-4) var(--line);
+  line-height: var(--line);
+  background-color: var(--card);
+  background-image:
+    linear-gradient(var(--card-top) 0 0),
+    repeating-linear-gradient(to bottom, transparent 0 calc(var(--line) - 1px), var(--card-line) calc(var(--line) - 1px) var(--line));
+  background-size:
+    100% 2px,
+    100% calc(100% - 4 * var(--line));
+  background-position:
+    0 calc(3 * var(--line) - 2px),
+    0 calc(3 * var(--line));
+  background-repeat: no-repeat;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.25);
+  rotate: -0.6deg;
+}
+
+:root[data-look="stripboard"] article.entry:nth-of-type(even) {
+  rotate: 0.5deg;
+}
+
+:root[data-look="stripboard"] article.entry::after {
+  content: "";
+  position: absolute;
+  top: -0.4rem;
+  left: 50%;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  background: var(--stamp);
+  box-shadow: 1px 2px 0 rgb(0 0 0 / 0.3);
+}
+
+:root[data-look="stripboard"] article.entry h2,
+:root[data-look="stripboard"] article.entry .meta,
+:root[data-look="stripboard"] article.entry .note,
+:root[data-look="stripboard"] article.entry .photo {
+  margin: 0;
+  padding: 0;
+  line-height: var(--line);
+}
+
+:root[data-look="stripboard"] article.entry .meta {
+  margin-bottom: var(--line);
+}
+
+:root[data-look="stripboard"] article.entry .note + .note {
+  margin-top: var(--line);
+}
+
+/* Forms: typed onto the line. */
+
+:root[data-look="stripboard"] .field label {
+  font-size: var(--size-ui);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+:root[data-look="stripboard"] input[type="text"],
+:root[data-look="stripboard"] input[type="email"] {
+  padding: var(--space-1) 0;
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid var(--rule);
+  border-radius: 0;
+}
+
+:root[data-look="stripboard"] textarea {
+  border: 2px solid var(--rule);
+  border-radius: 0;
+}
+
+:root[data-look="stripboard"] .button {
+  padding: var(--space-2) var(--space-4);
+  background: var(--page);
+  font-weight: 700;
+  text-transform: uppercase;
+  border: 2px solid var(--rule);
+  border-radius: 0;
+}
+
+:root[data-look="stripboard"] .button:hover {
+  background: var(--highlight);
+}
+
+/* Colophon, typed on the folder under the page. */
+
+:root[data-look="stripboard"] .colophon {
+  border-top: 0;
+  color: var(--text);
+}
+
+:root[data-look="stripboard"] .colophon .frame {
+  max-width: calc(var(--measure) + 2 * var(--sheet-pad));
+}
